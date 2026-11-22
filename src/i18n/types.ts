@@ -130,4 +130,23 @@ export interface UiDictionary {
     message: string;
     reloadButton: string;
   };
+  demoGuide: {
+    buttonLabel: string;
+    buttonShort: string;
+    buttonAria: string;
+    title: string;
+    subtitle: string;
+    closeAria: string;
+    dismissButton: string;
+    tryStepLabel: string;
+    doneLabel: string;
+    steps: Array<{
+      id: 'mode' | 'architecture' | 'document_ai' | 'maturity_capa';
+      number: string;
+      title: string;
+      description: string;
+      actionLabel: string;
+      secondaryActionLabel?: string;
+    }>;
+  };
 }

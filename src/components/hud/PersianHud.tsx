@@ -4,10 +4,12 @@ import {
   Bot,
   ChevronDown,
   ChevronUp,
+  Compass,
   Cpu,
   Gauge,
 } from 'lucide-react';
 import { ModuleDock } from './ModuleDock';
+import { ClientDemoGuide, type DemoStepId } from './ClientDemoGuide';
 import { ArchitectureDrawer } from '../modules/ArchitectureDrawer';
 import { DocumentAiDrawer } from '../modules/DocumentAiDrawer';
 import { Profile360Drawer } from '../modules/Profile360Drawer';
@@ -98,16 +100,32 @@ export function PersianHud({
   const [statusExpanded, setStatusExpanded] = useState<boolean>(() =>
     typeof window !== 'undefined' ? window.innerWidth >= 768 : true
   );
+  const [demoGuideOpen, setDemoGuideOpen] = useState<boolean>(false);
+  const [completedDemoSteps, setCompletedDemoSteps] = useState<Set<DemoStepId>>(
+    () => new Set()
+  );
 
-  // Close active modal on Escape key
+  const markDemoStep = (step: DemoStepId) => {
+    setCompletedDemoSteps((prev) => {
+      if (prev.has(step)) return prev;
+      const next = new Set(prev);
+      next.add(step);
+      return next;
+    });
+  };
+
+  // Close active modal or demo guide on Escape key
   useEffect(() => {
-    if (!activeModule) return;
+    if (!activeModule && !demoGuideOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onSelectModule(null);
+      if (e.key === 'Escape') {
+        setDemoGuideOpen(false);
+        onSelectModule(null);
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeModule, onSelectModule]);
+  }, [activeModule, demoGuideOpen, onSelectModule]);
 
   const glassPill = isSoftwareGl
     ? 'bg-slate-900/86 ring-1 ring-inset ring-white/25 shadow-[0_20px_50px_rgba(0,0,0,0.55)]'
@@ -177,9 +195,30 @@ export function PersianHud({
             </button>
           </div>
 
-          {/* Right Utility Controls: Speed + iOS 27 Segmented FA | EN Toggle */}
-          <div className="pointer-events-auto flex shrink-0 items-center gap-1.5 sm:gap-2">
-            {/* Compact Speed Selector (hidden on ultra-narrow < 420px to keep zero overflow) */}
+          {/* Right Utility Controls: Client Demo Guide + Speed + iOS 27 Segmented FA | EN Toggle */}
+          <div className="pointer-events-auto flex shrink-0 items-center gap-1 sm:gap-2">
+            {/* Dismissible Client Demo Guide Trigger */}
+            <button
+              type="button"
+              onClick={() => {
+                onSelectModule(null);
+                setDemoGuideOpen((prev) => !prev);
+              }}
+              aria-pressed={demoGuideOpen}
+              aria-label={t.demoGuide.buttonAria}
+              data-testid="btn-demo-guide"
+              className={`flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-full px-2 py-1.5 text-[11px] font-semibold transition-all duration-300 ease-out active:scale-95 sm:px-3 sm:py-1.5 ${glassPill} ${
+                demoGuideOpen
+                  ? 'text-sky-200 ring-sky-400/55'
+                  : 'text-slate-200 hover:bg-white/[0.14] hover:text-white'
+              }`}
+            >
+              <Compass className="h-3.5 w-3.5 shrink-0 text-sky-300" />
+              <span className="hidden xl:inline">{t.demoGuide.buttonLabel}</span>
+              <span className="hidden md:inline xl:hidden">{t.demoGuide.buttonShort}</span>
+            </button>
+
+            {/* Compact Speed Selector (hidden on ultra-narrow < 640px to keep zero overflow) */}
             <div
               role="group"
               aria-label={t.speedGroupAria}
@@ -352,16 +391,32 @@ export function PersianHud({
       {/* ================================================================= */}
       {/* CENTERED VISIONOS GLASS MODAL OVERLAY WITH BACKDROP DIMMING       */}
       {/* ================================================================= */}
-      {activeModule !== null && (
+      {(activeModule !== null || demoGuideOpen) && (
         <div
           data-testid="modal-backdrop"
-          onClick={() => onSelectModule(null)}
+          onClick={() => {
+            setDemoGuideOpen(false);
+            onSelectModule(null);
+          }}
           className="pointer-events-auto fixed inset-0 z-30 flex items-center justify-center bg-slate-950/50 p-3 transition-opacity duration-200 sm:p-6"
         >
           <div
             onClick={(e) => e.stopPropagation()}
             className="flex w-full items-center justify-center"
           >
+            {demoGuideOpen && activeModule === null && (
+              <ClientDemoGuide
+                locale={locale}
+                mode={mode}
+                isSoftwareGl={isSoftwareGl}
+                completedSteps={completedDemoSteps}
+                onMarkStep={markDemoStep}
+                onModeChange={onModeChange}
+                onSelectModule={onSelectModule}
+                onClose={() => setDemoGuideOpen(false)}
+              />
+            )}
+
             {activeModule === 'architecture' && (
               <ArchitectureDrawer
                 mode={mode}

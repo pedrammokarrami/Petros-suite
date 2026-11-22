@@ -43,7 +43,13 @@ export function ArchitectureDrawer({
   onClose,
 }: ArchitectureDrawerProps) {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(
-    () => new Set(['l0-value-chain', 'l1-supply', 'l2-procurement'])
+    () =>
+      new Set([
+        'l0-value-chain',
+        'l1-procurement',
+        'l2-requisition',
+        'l2-approval-hub',
+      ])
   );
 
   const t = UI_TRANSLATIONS[locale];
