@@ -14,6 +14,7 @@ import { ArchitectureDrawer } from '../modules/ArchitectureDrawer';
 import { DocumentAiDrawer } from '../modules/DocumentAiDrawer';
 import { Profile360Drawer } from '../modules/Profile360Drawer';
 import { ComplianceDrawer } from '../modules/ComplianceDrawer';
+import { ImsWorkspace } from '../../modules/ims/ImsWorkspace';
 import {
   UI_TRANSLATIONS,
   formatLocaleDigits,
@@ -460,6 +461,13 @@ export function PersianHud({
                 clauses={clauses}
                 onApplyCapa={onApplyCapa}
                 onFocusZone={onFocusZone}
+                onClose={() => onSelectModule(null)}
+              />
+            )}
+
+            {activeModule === 'ims_suite' && (
+              <ImsWorkspace
+                isSoftwareGl={isSoftwareGl}
                 onClose={() => onSelectModule(null)}
               />
             )}

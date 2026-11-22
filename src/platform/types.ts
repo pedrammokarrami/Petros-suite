@@ -5,6 +5,7 @@ export type PlatformModule =
   | 'document_ai'
   | 'profile_360'
   | 'compliance'
+  | 'ims_suite'
   | null;
 
 export interface CameraFocusPreset {

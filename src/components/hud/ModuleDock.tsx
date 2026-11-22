@@ -1,4 +1,5 @@
 import {
+  Award,
   FileCode2,
   Gauge,
   Layers,
@@ -36,6 +37,7 @@ const MODULE_META: Array<{
   { id: 'document_ai', icon: FileCode2 },
   { id: 'profile_360', icon: Gauge },
   { id: 'compliance', icon: ShieldCheck },
+  { id: 'ims_suite', icon: Award },
 ];
 
 /**
@@ -82,7 +84,7 @@ export function ModuleDock({
             onClick={() => onSelectModule(active ? null : item.id)}
             aria-pressed={active}
             data-testid={`dock-${item.id}`}
-            className={`relative flex cursor-pointer items-center gap-1 whitespace-nowrap rounded-full px-2 py-1.5 text-[10.5px] font-semibold transition-all duration-300 ease-out active:scale-95 sm:gap-1.5 sm:px-3.5 sm:py-2 sm:text-[12px] ${
+            className={`relative flex cursor-pointer items-center gap-1 whitespace-nowrap rounded-full px-1.5 py-1.5 text-[10px] font-semibold transition-all duration-300 ease-out active:scale-95 sm:gap-1.5 sm:px-3 sm:py-2 sm:text-[12px] ${
               active
                 ? 'bg-white/22 text-white ring-1 ring-inset ring-white/35 shadow-[0_6px_22px_rgba(56,189,248,0.32)]'
                 : 'text-slate-200 hover:bg-white/[0.12] hover:text-white'

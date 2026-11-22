@@ -46,3 +46,40 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.28);
 }
+
+/* Crisp printable audit readiness report styling */
+@media print {
+  html,
+  body,
+  #root {
+    height: auto !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  canvas,
+  header,
+  footer,
+  .ims-no-print {
+    display: none !important;
+  }
+
+  .ims-workspace-root {
+    position: static !important;
+    height: auto !important;
+    max-width: none !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    box-shadow: none !important;
+    border: none !important;
+    overflow: visible !important;
+  }
+
+  .ims-print-surface,
+  .ims-print-surface * {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border-color: #cbd5e1 !important;
+  }
+}

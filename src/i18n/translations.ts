@@ -51,9 +51,10 @@ export const UI_TRANSLATIONS: Record<Locale, UiDictionary> = {
     dockResetCameraAria: 'بازگشت به نمای کل دوربین',
     dockModules: {
       architecture: { label: 'معماری فرآیند', short: 'معماری' },
-      document_ai: { label: 'اسناد هوشمند AI', short: 'اسناد AI' },
-      profile_360: { label: 'بلوغ ۳۶۰ درجه', short: 'بلوغ ۳۶۰°' },
+      document_ai: { label: 'اسناد هوشمند AI', short: 'اسناد' },
+      profile_360: { label: 'بلوغ ۳۶۰ درجه', short: 'بلوغ' },
       compliance: { label: 'ممیزی ISO و CAPA', short: 'ممیزی' },
+      ims_suite: { label: 'سامانه IMS', short: 'IMS' },
     },
     badges3d: {
       intake: 'درخواست و ثبت',
@@ -232,6 +233,7 @@ export const UI_TRANSLATIONS: Record<Locale, UiDictionary> = {
       document_ai: { label: 'AI Docs → BPMN', short: 'AI Docs' },
       profile_360: { label: '360° Maturity', short: '360°' },
       compliance: { label: 'ISO & CAPA', short: 'Audit' },
+      ims_suite: { label: 'IMS Suite', short: 'IMS' },
     },
     badges3d: {
       intake: 'Request & Intake',

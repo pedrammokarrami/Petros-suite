@@ -37,6 +37,7 @@ export interface UiDictionary {
     document_ai: { label: string; short: string };
     profile_360: { label: string; short: string };
     compliance: { label: string; short: string };
+    ims_suite: { label: string; short: string };
   };
   badges3d: {
     intake: string;
