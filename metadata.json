@@ -1,0 +1,6 @@
+{
+  "name": "Petros Process Suite",
+  "description": "3D Isometric Enterprise Process Simulation comparing traditional AS-IS approval bottlenecks with AI-optimized TO-BE workflows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
